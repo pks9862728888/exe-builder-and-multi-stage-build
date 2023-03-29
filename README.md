@@ -1,5 +1,15 @@
 # Getting Started
 
+## To build docker image
+```shell
+docker build -t demo:1.0 . 
+```
+
+## To run container
+```shell
+docker run -e SPRING_PROFILES_ACTIVE=env1 demo:1.0 
+```
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
