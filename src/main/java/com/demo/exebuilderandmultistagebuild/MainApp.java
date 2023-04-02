@@ -10,16 +10,26 @@ import org.springframework.context.ConfigurableApplicationContext;
 public class MainApp {
 
     public static void main(String[] args) {
-        ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
+        try {
+            ConfigurableApplicationContext context = SpringApplication.run(MainApp.class, args);
 
-        // Execute journey and exit
-        JourneyExecutorService executorService = context.getBean(JourneyExecutorService.class);
-        if (executorService.executeJourney()) {
-            log.info("Journey executed successfully! Exiting gracefully...");
-            context.close();
-        } else {
-            log.error("Exiting with status code 1");
-            System.exit(1);
+            // Execute journey
+            JourneyExecutorService executorService = context.getBean(JourneyExecutorService.class);
+            if (executorService.executeJourney()) {
+                log.info("Journey executed successfully!");
+            } else {
+                log.error("Error occurred");
+            }
+        } catch (Throwable e) {
+            e.printStackTrace();
+            System.out.println(e);
+        } finally {
+            holdTerminal();
+        }
+    }
+
+    private static void holdTerminal() {
+        while(true) {
         }
     }
 }

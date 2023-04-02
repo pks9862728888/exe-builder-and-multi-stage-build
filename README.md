@@ -10,6 +10,11 @@ docker build -t demo:1.0 .
 docker run -e SPRING_PROFILES_ACTIVE=env1 demo:1.0 
 ```
 
+## To build exe file (env variable activation support is not there in jpackage)
+```shell
+jpackage --name ExeBuilderDemoApp --input target --main-jar exe-builder-and-multi-stage-build-0.1.0.jar --type exe --dest results/ --app-version 0.1.0 --verbose --win-dir-chooser --win-menu --win-shortcut --win-shortcut-prompt --win-console
+```
+
 ### Reference Documentation
 For further reference, please consider the following sections:
 
