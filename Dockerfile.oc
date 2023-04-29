@@ -1,0 +1,20 @@
+FROM openjdk:11 AS jdk-ref
+
+# Build final image
+FROM openshift/origin-cli
+
+# Install jdk
+ENV JAVA_VERSION="11.0.16"
+ENV JAVA_HOME="/usr/local/openjdk-11/"
+COPY --from=jdk-ref ${JAVA_HOME} ${JAVA_HOME}
+ENV PATH="${JAVA_HOME}bin:$PATH"
+
+# Install application
+USER root
+RUN mkdir /app
+WORKDIR /app
+COPY deploy/entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
+
+# Run application
+ENTRYPOINT ["/app/entrypoint.sh"]
